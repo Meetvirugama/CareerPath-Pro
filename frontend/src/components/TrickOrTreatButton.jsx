@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import gsap from "gsap";
 import "./TrickOrTreatButton.css";
 
@@ -10,40 +10,45 @@ export default function TrickOrTreatButton({
   const btnRef = useRef(null);
   const emitterRef = useRef(null);
 
-  const createParticles = (parent, quantity, x, y, minAngle, maxAngle) => {
+  const createParticles = (parent, quantity) => {
     const colors = ["#39ff14", "#8b0000", "#920783", "#FFF33F"];
 
     for (let i = 0; i < quantity; i++) {
       const dot = document.createElement("div");
+
       dot.style.setProperty(
         "--b",
         colors[Math.floor(Math.random() * colors.length)]
       );
+
       parent.appendChild(dot);
 
+      const angle = gsap.utils.random(-120, -60);
+      const velocity = gsap.utils.random(80, 200);
+
+      const x = Math.cos((angle * Math.PI) / 180) * velocity;
+      const y = Math.sin((angle * Math.PI) / 180) * velocity;
+
       gsap.set(dot, {
-        x,
-        y,
+        x: 0,
+        y: 0,
         opacity: 1,
         scale: gsap.utils.random(0.3, 0.6),
       });
 
       gsap.to(dot, {
-        physics2D: {
-          velocity: gsap.utils.random(80, 200),
-          angle: gsap.utils.random(minAngle, maxAngle),
-          gravity: 200,
-        },
+        x: x,
+        y: y,
         opacity: 0,
-        duration: 1.5,
+        duration: 1.2,
+        ease: "power2.out",
         onComplete: () => dot.remove(),
       });
     }
   };
 
   const handleClick = () => {
-    if (loading) return; // 🔥 Prevent double click
-
+    if (loading) return;
     if (onClick) onClick();
 
     const btn = btnRef.current;
@@ -62,49 +67,29 @@ export default function TrickOrTreatButton({
 
     tl.to(
       btn.querySelectorAll(".text div"),
-      {
-        y: -25,
-        duration: 0.3,
-        stagger: 0.05,
-      },
+      { y: -25, duration: 0.3, stagger: 0.05 },
       "<"
     );
 
     tl.to(
       btn.querySelector("#p-top"),
-      {
-        rotate: -20,
-        transformOrigin: "bottom",
-        duration: 0.25,
-      },
+      { rotate: -20, transformOrigin: "bottom", duration: 0.25 },
       "<"
     );
 
     tl.add(() => {
-      createParticles(emitter, 70, 0, 0, -120, -60);
+      createParticles(emitter, 70);
     });
 
     tl.to(btn, { scale: 1, duration: 0.2, ease: "elastic.out(1,0.4)" }, "+=0.1");
 
-    tl.to(
-      btn.querySelector("#pumpkin"),
-      { scaleY: 1, duration: 0.2 },
-      "<"
-    );
+    tl.to(btn.querySelector("#pumpkin"), { scaleY: 1, duration: 0.2 }, "<");
 
-    tl.to(
-      btn.querySelector("#p-top"),
-      { rotate: 0, duration: 0.25 },
-      "<"
-    );
+    tl.to(btn.querySelector("#p-top"), { rotate: 0, duration: 0.25 }, "<");
 
     tl.to(
       btn.querySelectorAll(".text div"),
-      {
-        y: 0,
-        duration: 0.3,
-        stagger: 0.05,
-      },
+      { y: 0, duration: 0.3, stagger: 0.05 },
       "<"
     );
   };
