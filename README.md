@@ -1,7 +1,3 @@
-
-
-
-
 # 🎯 CareerPath Pro
 
 A full-stack Machine Learning web application that predicts student placement probability and expected salary using academic and skill-based features.
@@ -15,6 +11,26 @@ Built with **FastAPI (Backend)**, **XGBoost (ML Models)**, and **React (Frontend
 **Meet Virugama**  
 🎓 DA-IICT  
 💡 Interests: Machine Learning • Backend Systems • Frontend Development • DSA  
+
+---
+
+# 🖼️ Application Preview
+
+## 🏠 Home Screen
+
+<img width="1457" height="770" alt="Screenshot 2026-02-16 at 10 11 31 PM" src="https://github.com/user-attachments/assets/9aa4f3d0-02ab-437f-a968-23b7e8b378db" />
+
+---
+
+## Loader
+
+<img width="1457" height="770" alt="Screenshot 2026-02-16 at 10 11 42 PM" src="https://github.com/user-attachments/assets/df248621-34ae-459a-a5f8-b93ca9198112" />
+
+---
+
+## 📊 Prediction Result
+
+<img width="1457" height="770" alt="Screenshot 2026-02-16 at 10 11 25 PM" src="https://github.com/user-attachments/assets/21d3beea-6eb9-43ef-b28e-cea951f93c40" />
 
 ---
 
@@ -179,4 +195,3 @@ http://localhost:3000
 ## 📄 License
 
 Built for educational and portfolio purposes.
-
