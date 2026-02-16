@@ -1,9 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
-import Physics2DPlugin from "gsap/Physics2DPlugin";
 import "./TrickOrTreatButton.css";
-
-gsap.registerPlugin(Physics2DPlugin);
 
 export default function TrickOrTreatButton({
   textLines = ["Predict Your Future!"],
