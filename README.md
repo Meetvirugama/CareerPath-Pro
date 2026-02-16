@@ -192,6 +192,35 @@ http://localhost:3000
 
 ---
 
+# 🙏 Acknowledgements & Credits
+
+This project was developed as part of:
+
+**DA-IICT MSTC Club – WoC (Winter of Code)**  
+Machine Learning Program
+
+### 🧑‍🏫 Mentors
+- Aum Parmar  
+- Harsh Shah  
+
+Their guidance and mentorship were instrumental in shaping the machine learning pipeline and overall project direction.
+
+---
+
+### 🎨 Frontend & Design Credits
+
+- ChatGPT – Assistance with frontend structuring, logic refinement, and integration guidance  
+- CodePen (https://codepen.io) – UI inspiration and animation concept references  
+
+---
+
+### 🏫 Institution
+
+Dhirubhai Ambani Institute of Information and Communication Technology (DA-IICT)
+
+---
+
 ## 📄 License
 
 Built for educational and portfolio purposes.
+
