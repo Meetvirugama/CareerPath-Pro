@@ -1,3 +1,7 @@
+
+
+
+
 # 🎯 CareerPath Pro
 
 A full-stack Machine Learning web application that predicts student placement probability and expected salary using academic and skill-based features.
@@ -175,3 +179,4 @@ http://localhost:3000
 ## 📄 License
 
 Built for educational and portfolio purposes.
+
