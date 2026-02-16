@@ -4,7 +4,7 @@ from enum import Enum
 from fastapi.middleware.cors import CORSMiddleware
 from predict import predict_student
 
-app = FastAPI(title="CareerPath Pro API")
+app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
@@ -28,11 +28,13 @@ class StudentInput(BaseModel):
     Projects: int = Field(..., ge=0)
     Coding_Skills: int = Field(..., ge=0, le=10)
     Communication_Skills: int = Field(..., ge=0, le=100)
-    Aptitude_Test_Score: int = Field(..., ge=0 , le = 100)
+    Aptitude_Test_Score: int = Field(..., ge=0, le=100)
     Soft_Skills_Rating: int = Field(..., ge=0, le=10)
     Certifications: int = Field(..., ge=0)
     Backlogs: int = Field(..., ge=0)
 
 @app.post("/predict")
 async def predict(data: StudentInput):
-    return predict_student(data.model_dump())
+    result = predict_student(data.model_dump())
+    return result
+

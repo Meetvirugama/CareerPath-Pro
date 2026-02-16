@@ -1,20 +1,39 @@
+/* ===============================
+   ROOT FIX (CRITICAL)
+================================ */
+
 html,
 body {
   width: 100%;
-  height: 100%;
   margin: 0;
-  overflow: hidden;
+
+  /* REMOVE HEIGHT LOCK */
+  min-height: 100%;
+  height: auto;
+
+  /* ENABLE SCROLL */
+  overflow-x: auto;
+  overflow-y: auto;
+
   background: #282537;
   background-image: radial-gradient(circle at top, #3c3b52 0%, #252233 80%);
 }
 
+/* VERY IMPORTANT FOR REACT */
+#root {
+  min-height: 100vh;
+  height: auto;
+}
+
+/* ===============================
+   HALLOWEEN BACKGROUND
+================================ */
+
 .halloweenContainer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  position: fixed;   /* stays background only */
+  inset: 0;
   pointer-events: none;
+  z-index: 0;
 }
 
 .halloweenBat {

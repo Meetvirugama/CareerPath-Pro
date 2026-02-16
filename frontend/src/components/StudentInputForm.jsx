@@ -8,8 +8,8 @@ import HalloweenBats from "./HalloweenBats";
 
 export default function StudentInputForm() {
   const [formData, setFormData] = useState({
-    Gender: "Male",      
-    Degree: "B.Tech",    
+    Gender: "Male",
+    Degree: "B.Tech",
     Branch: "",
   });
 
@@ -27,20 +27,25 @@ export default function StudentInputForm() {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      const res = await fetch("http://127.0.0.1:8000/predict", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/predict`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
-          Gender: "Male",      
-          Degree: "B.Tech", 
+          Gender: "Male",
+          Degree: "B.Tech",
         }),
       });
+
+      if (!res.ok) {
+        throw new Error("API error");
+      }
 
       const data = await res.json();
       setResult(data);
     } catch (err) {
-      alert("Backend not running 💀");
+      alert("Backend not responding 💀");
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -138,7 +143,6 @@ export default function StudentInputForm() {
             />
           ))}
 
-          {/* Only Branch remains */}
           <ScarySelector
             type="text"
             placeholder="CSE OR ECE"
