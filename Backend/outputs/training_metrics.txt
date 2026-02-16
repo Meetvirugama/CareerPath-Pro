@@ -1,0 +1,10 @@
+Placement CV F1 Scores: [1. 1. 1. 1. 1.]
+Mean Placement CV F1: 1.0000
+Test Placement F1 Score: 1.0000
+
+Salary CV RMSE: [0.02585304 0.02477613 0.0244547  0.02502922 0.02514127]
+Mean Salary CV RMSE: 0.0251
+
+Logistic Regression CV AUC: [0.93826083 0.93760839 0.94069595 0.93534423 0.93586416]
+Mean Logistic CV AUC: 0.9376
+Train AUC: 0.9377

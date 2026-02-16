@@ -1,0 +1,72 @@
+/* 🎃 FULLSCREEN LOADER */
+
+.fullscreenLoader {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #1a0f0b 0%, #000000 80%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeInLoader 0.4s ease;
+}
+
+/* Pumpkin container */
+.container {
+  width: 280px;
+  animation: floatPumpkin 2s ease-in-out infinite;
+}
+
+.container svg {
+  width: 100%;
+  height: auto;
+}
+
+/* Face glow */
+#face {
+  fill: #271d19;
+  animation: light 2s ease-in-out infinite alternate;
+}
+
+/* Body dim */
+#pumpkin-body {
+  animation: darken 2s ease-in-out infinite alternate;
+}
+
+/* Loading text */
+.loadingText {
+  margin-top: 25px;
+  font-size: 20px;
+  color: #fdb832;
+  text-shadow: 0 0 12px #fdb832;
+  letter-spacing: 2px;
+  animation: pulseText 1.5s infinite;
+}
+
+/* Animations */
+@keyframes floatPumpkin {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes light {
+  from { fill: #271d19; }
+  to { fill: #fdb832; }
+}
+
+@keyframes darken {
+  to { opacity: 0.6; }
+}
+
+@keyframes fadeInLoader {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulseText {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}

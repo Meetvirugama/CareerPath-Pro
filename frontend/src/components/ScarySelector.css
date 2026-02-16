@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Jolly+Lodger&family=Julius+Sans+One&family=Waiting+for+the+Sunrise&family=Nosifer&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #001a14 0%, #000 70%);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* ===============================
+   CONTAINER
+=================================*/
+
+#scary-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===============================
+   BONE ROUNDS
+=================================*/
+
+.round {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #fff;
+  position: relative;
+}
+
+.round:first-child {
+  box-shadow: inset 13px -2px 6px 0px rgba(0, 0, 0, 0.2);
+  top: 5px;
+}
+
+.round:last-child {
+  box-shadow: inset 13px -2px 6px 0px rgba(0, 0, 0, 0.2);
+  top: -5px;
+}
+
+.left-bone-rounds {
+  position: relative;
+  left: 15px;
+}
+
+.right-bone-rounds {
+  position: relative;
+  right: 15px;
+  transform: scale(-1, 1);
+}
+
+/* ===============================
+   BONE CENTER
+=================================*/
+
+.bone {
+  height: 60px;
+  width: 225px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    0deg,
+    rgba(233, 233, 233, 1) 0%,
+    rgba(255, 255, 255, 1) 16%,
+    rgba(254, 254, 254, 1) 84%,
+    rgba(233, 233, 233, 1) 100%
+  );
+  border-radius: 20px;
+}
+
+/* ===============================
+   INPUT STYLING (HALLOWEEN)
+=================================*/
+
+.bone input {
+  width: 70%;
+  height: 60%;
+  font-size: 20px;
+  font-family: "Waiting for the Sunrise", cursive;
+  background-color: #ffffff;
+  border: 3px solid #fff;
+  color: #ff0000;
+  text-align: center;
+  border-radius: 10px;
+  transition: 0.3s ease;
+  text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000;
+}
+
+.bone input::placeholder {
+  color: #ff4444;
+  opacity: 0.8;
+}
+
+.bone input:focus {
+  outline: none;
+  border: 3px solid rgb(255, 122, 34);
+  box-shadow: 0 0 10px rgb(255, 122, 34);
+  transform: scale(1.05);
+}

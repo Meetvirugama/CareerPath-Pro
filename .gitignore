@@ -1,5 +1,16 @@
+
+frontend/node_modules/
+
+backend/ml/venv/
 venv/
-.DS_Store
 __pycache__/
 *.pyc
+
+*.pkl
+
+
+.DS_Store
+
 .env
+
+backend/ml/outputs/
