@@ -1,14 +1,8 @@
-# 🎃 CareerPath Pro  
+# 🎯 CareerPath Pro
 
-> Halloween-Themed Placement & Salary Prediction System  
+A full-stack Machine Learning web application that predicts student placement probability and expected salary using academic and skill-based features.
 
-A full-stack Machine Learning web application that predicts:
-
-- ✅ Placement Status  
-- 📊 Placement Probability (%)  
-- 💰 Expected Salary (₹15K – ₹10L range)  
-
-Built using **FastAPI + XGBoost + React** with a custom Halloween-themed UI.
+Built with **FastAPI (Backend)**, **XGBoost (ML Models)**, and **React (Frontend)**.
 
 ---
 
@@ -16,178 +10,168 @@ Built using **FastAPI + XGBoost + React** with a custom Halloween-themed UI.
 
 **Meet Virugama**  
 🎓 DA-IICT  
-💡 Interests: Frontend • Backend • Machine Learning • DSA  
+💡 Interests: Machine Learning • Backend Systems • Frontend Development • DSA  
 
 ---
 
-# 🏗 Project Architecture
+# 🚀 Project Overview
 
+CareerPath Pro predicts:
+
+- ✅ Placement Status (Placed / Not Placed)
+- 📊 Placement Probability (%)
+- 💰 Expected Salary (₹15,000 – ₹10,00,000)
+
+The system uses two separate machine learning models:
+
+1. 🧠 Classification Model → Predicts placement  
+2. 📈 Regression Model → Predicts salary (only if placed)
+
+---
+
+# 🏗️ Project Architecture
+
+```
 career-path-pro
 │
 ├── Backend
-│ ├── ml
-│ │ ├── api.py
-│ │ ├── preprocess.py
-│ │ ├── train.py
-│ │ ├── predict.py
-│ │ └── requirements.txt
-│ │
-│ └── outputs
+│   ├── ml
+│   │   ├── api.py
+│   │   ├── preprocess.py
+│   │   ├── train.py
+│   │   ├── predict.py
+│   │   └── requirements.txt
+│   │
+│   └── outputs
 │
 └── frontend
-├── package.json
-├── package-lock.json
-├── public
-│ ├── favicon.ico
-│ ├── index.html
-│ ├── logo192.png
-│ ├── logo512.png
-│ ├── manifest.json
-│ └── robots.txt
-│
-└── src
-├── App.js
-├── index.js
-├── reportWebVitals.js
-│
-└── components
-├── StudentInputForm.jsx
-├── ScarySelector.jsx
-├── ScarySelector.css
-├── TrickOrTreatButton.jsx
-├── TrickOrTreatButton.css
-├── HalloweenProgress.jsx
-├── HalloweenProgress.css
-├── HalloweenBats.jsx
-├── HalloweenBats.css
-├── Pumpkin.jsx
-├── Pumpkin.css
-├── HalloweenScene.jsx
-├── HalloweenScene.css
-└── HalloweenTheme.css
+    ├── package.json
+    ├── public
+    └── src
+        ├── App.js
+        ├── index.js
+        └── components
+            ├── StudentInputForm.jsx
+            ├── ScarySelector.jsx
+            ├── TrickOrTreatButton.jsx
+            ├── HalloweenProgress.jsx
+            ├── HalloweenBats.jsx
+            ├── Pumpkin.jsx
+            └── CSS files
+```
 
 ---
 
 # 🧠 Machine Learning Pipeline
 
-## 1️⃣ Placement Prediction (Classification)
+## 1️⃣ Data Preprocessing
+- StandardScaler applied to numerical features  
+- OneHotEncoder applied to categorical features  
+- Stratified train-test split  
+
+---
+
+## 2️⃣ Placement Prediction (Classification)
 
 - Model: **XGBoost Classifier**
-- Metric: F1 Score
-- Cross Validation: Stratified K-Fold
+- Metric: **F1 Score**
+- Validation: **Stratified 5-Fold Cross Validation**
 - Target: `Placement_Status`
 
-## 2️⃣ Salary Prediction (Regression)
+---
+
+## 3️⃣ Salary Prediction (Regression)
 
 - Model: **XGBoost Regressor**
 - Trained only on placed students
-- Log transformation used:
+- Log transformation:
   - `log1p()` during training
   - `expm1()` during prediction
-- Salary Range: ₹15,000 – ₹10,00,000
+- Handles salary skewness for stable predictions
 
 ---
 
-## 📊 Features Used
+# 📡 API Endpoint
 
-### Numerical Features
-- Age  
-- CGPA  
-- Internships  
-- Projects  
-- Coding_Skills  
-- Communication_Skills  
-- Aptitude_Test_Score  
-- Soft_Skills_Rating  
-- Certifications  
-- Backlogs  
+### 🔹 POST `/predict`
 
-### Categorical Features
-- Gender  
-- Degree  
-- Branch  
+### Example Response
 
-Preprocessing includes:
-- StandardScaler for numeric features  
-- OneHotEncoder for categorical features  
-
----
-
-# 🚀 Backend (FastAPI)
-
-### 🔧 Tech Stack
-- FastAPI  
-- XGBoost  
-- Scikit-learn  
-- Pandas  
-- Joblib  
-
-### ▶ Run Backend
-
-```bash
-cd Backend/ml
-pip install -r requirements.txt
-uvicorn api:app --reload
-Backend runs at:
-http://127.0.0.1:8000
-API Endpoint
-POST /predict
-Example Response
+```json
 {
   "Placement_Status": "Placed",
   "Placement_Chance_%": 83.24,
   "Predicted_Salary": 131824.34
 }
-🎨 Frontend (React + Halloween Theme)
-🔧 Tech Stack
-React
-Custom CSS Animations
-Component-Based Architecture
-Interactive UI
-🎭 Design Inspiration
-ChatGPT (logic & structure assistance)
-CodePen (UI ideas & animation concepts)
-▶ Run Frontend
+```
+
+---
+
+# 🖥️ Backend Setup
+
+```bash
+cd Backend/ml
+pip install -r requirements.txt
+uvicorn api:app --reload
+```
+
+Backend runs at:
+
+```
+http://127.0.0.1:8000
+```
+
+---
+
+# 🎨 Frontend Setup
+
+```bash
 cd frontend
 npm install
 npm start
+```
+
 Frontend runs at:
+
+```
 http://localhost:3000
-🌟 Key Features
-🎃 Animated Halloween-themed UI
-🦇 Background bats animation
-📊 Circular placement probability gauge
-💰 Realistic salary prediction
-⚡ FastAPI + React integration
-🧠 Machine Learning powered backend
-🧩 Modular clean architecture
-🛠 How It Works
-User enters student details in React UI
-Frontend sends POST request to FastAPI
-Backend:
-Applies preprocessing pipeline
-Predicts placement
-Predicts salary (if placed)
-UI displays:
-Placement status
-Probability percentage
-Estimated salary
-📈 Model Performance
-Optimized using F1 Score
-5-Fold Stratified Cross Validation
-Log-transformed regression for stable salary prediction
-🔮 Future Improvements
-Deployment (Render + Vercel)
-Model Explainability (SHAP)
-CI/CD with GitHub Actions
-Salary band classification
-Analytics dashboard
-📌 What This Project Demonstrates
-✔ Full-Stack ML Integration
-✔ Production-Ready API
-✔ Regression + Classification Modeling
-✔ Clean Feature Engineering
-✔ Strong ML & DSA Concepts
-✔ Creative UI/UX Design
-📜 License
-This project is built for educational and portfolio purposes.
+```
+
+---
+
+# 🌟 Key Features
+
+- 🔁 Full-stack ML integration
+- 🧠 Separate classification & regression pipelines
+- 📊 Probability-based placement prediction
+- 💰 Realistic salary modeling
+- ⚡ FastAPI + React integration
+- 🧩 Modular clean architecture
+- 🎨 Interactive UI design
+
+---
+
+# 🔮 Future Improvements
+
+- 📊 Model explainability (SHAP)
+- 🌍 Cloud deployment (Render / Vercel)
+- 🔁 CI/CD with GitHub Actions
+- 📈 Analytics dashboard
+- 📦 Model versioning
+
+---
+
+# 📌 What This Project Demonstrates
+
+✔ Strong ML fundamentals  
+✔ Production-style backend API design  
+✔ Clean feature engineering  
+✔ End-to-end ML deployment  
+✔ Frontend-backend integration  
+✔ Structured software architecture  
+
+---
+
+## 📄 License
+
+Built for educational and portfolio purposes.
