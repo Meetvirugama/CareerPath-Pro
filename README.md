@@ -6,6 +6,13 @@ Built with **FastAPI (Backend)**, **XGBoost (ML Models)**, and **React (Frontend
 
 ---
 
+## 🌐 Live Deployment
+
+- 🚀 Frontend (Vercel): https://your-vercel-link.vercel.app  
+- 🔗 Backend (Render): https://careerpath-pro-a2th.onrender.com  
+
+---
+
 ## 👨‍💻 Developer
 
 **Meet Virugama**  
@@ -18,19 +25,19 @@ Built with **FastAPI (Backend)**, **XGBoost (ML Models)**, and **React (Frontend
 
 ## 🏠 Home Screen
 
-<img width="1457" height="770" alt="Screenshot 2026-02-16 at 10 11 31 PM" src="https://github.com/user-attachments/assets/9aa4f3d0-02ab-437f-a968-23b7e8b378db" />
+<img width="1457" alt="Home Screen" src="https://github.com/user-attachments/assets/9aa4f3d0-02ab-437f-a968-23b7e8b378db" />
 
 ---
 
-## Loader
+## ⏳ Loader
 
-<img width="1457" height="770" alt="Screenshot 2026-02-16 at 10 11 42 PM" src="https://github.com/user-attachments/assets/df248621-34ae-459a-a5f8-b93ca9198112" />
+<img width="1457" alt="Loader" src="https://github.com/user-attachments/assets/df248621-34ae-459a-a5f8-b93ca9198112" />
 
 ---
 
 ## 📊 Prediction Result
 
-<img width="1457" height="770" alt="Screenshot 2026-02-16 at 10 11 25 PM" src="https://github.com/user-attachments/assets/21d3beea-6eb9-43ef-b28e-cea951f93c40" />
+<img width="1457" alt="Prediction Result" src="https://github.com/user-attachments/assets/21d3beea-6eb9-43ef-b28e-cea951f93c40" />
 
 ---
 
@@ -38,9 +45,9 @@ Built with **FastAPI (Backend)**, **XGBoost (ML Models)**, and **React (Frontend
 
 CareerPath Pro predicts:
 
-- ✅ Placement Status (Placed / Not Placed)
-- 📊 Placement Probability (%)
-- 💰 Expected Salary (₹15,000 – ₹10,00,000)
+- ✅ Placement Status (Placed / Not Placed)  
+- 📊 Placement Probability (%)  
+- 💰 Expected Salary  
 
 The system uses two separate machine learning models:
 
@@ -52,17 +59,21 @@ The system uses two separate machine learning models:
 # 🏗️ Project Architecture
 
 ```
-career-path-pro
+CareerPath-Pro
 │
 ├── Backend
-│   ├── ml
-│   │   ├── api.py
-│   │   ├── preprocess.py
-│   │   ├── train.py
-│   │   ├── predict.py
-│   │   └── requirements.txt
+│   ├── main.py
+│   ├── requirements.txt
+│   ├── runtime.txt
 │   │
-│   └── outputs
+│   └── ml
+│       ├── predict.py
+│       ├── preprocess.py
+│       ├── train.py
+│       └── models
+│           ├── placement_model.pkl
+│           ├── salary_model.pkl
+│           └── preprocessor.pkl
 │
 └── frontend
     ├── package.json
@@ -85,6 +96,7 @@ career-path-pro
 # 🧠 Machine Learning Pipeline
 
 ## 1️⃣ Data Preprocessing
+
 - StandardScaler applied to numerical features  
 - OneHotEncoder applied to categorical features  
 - Stratified train-test split  
@@ -115,6 +127,26 @@ career-path-pro
 
 ### 🔹 POST `/predict`
 
+### Example Request
+
+```json
+{
+  "Age": 22,
+  "Gender": "Male",
+  "Degree": "B.Tech",
+  "Branch": "Computer Science",
+  "CGPA": 8.5,
+  "Internships": 2,
+  "Projects": 3,
+  "Coding_Skills": 8,
+  "Communication_Skills": 75,
+  "Aptitude_Test_Score": 80,
+  "Soft_Skills_Rating": 7,
+  "Certifications": 2,
+  "Backlogs": 0
+}
+```
+
 ### Example Response
 
 ```json
@@ -127,12 +159,12 @@ career-path-pro
 
 ---
 
-# 🖥️ Backend Setup
+# 🖥️ Local Backend Setup
 
 ```bash
-cd Backend/ml
+cd Backend
 pip install -r requirements.txt
-uvicorn api:app --reload
+uvicorn main:app --reload
 ```
 
 Backend runs at:
@@ -141,9 +173,15 @@ Backend runs at:
 http://127.0.0.1:8000
 ```
 
+Swagger docs available at:
+
+```
+http://127.0.0.1:8000/docs
+```
+
 ---
 
-# 🎨 Frontend Setup
+# 🎨 Local Frontend Setup
 
 ```bash
 cd frontend
@@ -159,25 +197,42 @@ http://localhost:3000
 
 ---
 
+# ☁️ Deployment
+
+### Backend
+- Hosted on Render  
+- Python 3.11  
+- FastAPI + Uvicorn  
+
+### Frontend
+- Hosted on Vercel  
+- Environment variable:
+
+```
+REACT_APP_API_URL=https://careerpath-pro-a2th.onrender.com
+```
+
+---
+
 # 🌟 Key Features
 
-- 🔁 Full-stack ML integration
-- 🧠 Separate classification & regression pipelines
-- 📊 Probability-based placement prediction
-- 💰 Realistic salary modeling
-- ⚡ FastAPI + React integration
-- 🧩 Modular clean architecture
-- 🎨 Interactive UI design
+- 🔁 Full-stack ML integration  
+- 🧠 Separate classification & regression pipelines  
+- 📊 Probability-based placement prediction  
+- 💰 Realistic salary modeling  
+- ⚡ FastAPI + React integration  
+- 🧩 Modular clean architecture  
+- 🎨 Interactive animated UI  
 
 ---
 
 # 🔮 Future Improvements
 
-- 📊 Model explainability (SHAP)
-- 🌍 Cloud deployment (Render / Vercel)
-- 🔁 CI/CD with GitHub Actions
-- 📈 Analytics dashboard
-- 📦 Model versioning
+- 📊 Model explainability (SHAP)  
+- 🔁 CI/CD with GitHub Actions  
+- 📈 Analytics dashboard  
+- 📦 Model versioning  
+- 🌍 Custom domain  
 
 ---
 
@@ -192,29 +247,20 @@ http://localhost:3000
 
 ---
 
-# 🙏 Acknowledgements & Credits
+# 🙏 Acknowledgements
 
-This project was developed as part of:
+Developed as part of:
 
 **DA-IICT MSTC Club – WoC (Winter of Code)**  
-Machine Learning Program
+Machine Learning Program  
 
-### 🧑‍🏫 Mentors
+### Mentors
 - Aum Parmar  
 - Harsh Shah  
 
-Their guidance and mentorship were instrumental in shaping the machine learning pipeline and overall project direction.
-
 ---
 
-### 🎨 Frontend & Design Credits
-
-- ChatGPT – Assistance with frontend structuring, logic refinement, and integration guidance  
-- CodePen (https://codepen.io) – UI inspiration and animation concept references  
-
----
-
-### 🏫 Institution
+# 🏫 Institution
 
 Dhirubhai Ambani Institute of Information and Communication Technology (DA-IICT)
 
@@ -223,4 +269,3 @@ Dhirubhai Ambani Institute of Information and Communication Technology (DA-IICT)
 ## 📄 License
 
 Built for educational and portfolio purposes.
-
