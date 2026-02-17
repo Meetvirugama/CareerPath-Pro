@@ -8,7 +8,7 @@ Built with **FastAPI (Backend)**, **XGBoost (ML Models)**, and **React (Frontend
 
 ## 🌐 Live Deployment
 
-- 🚀 Frontend (Vercel): https://your-vercel-link.vercel.app  
+- 🚀 Frontend (Vercel): https://career-path-pro-flame.vercel.app/
 - 🔗 Backend (Render): https://careerpath-pro-a2th.onrender.com  
 
 ---
@@ -269,3 +269,4 @@ Dhirubhai Ambani Institute of Information and Communication Technology (DA-IICT)
 ## 📄 License
 
 Built for educational and portfolio purposes.
+
