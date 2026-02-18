@@ -20,34 +20,57 @@ export default function StudentInputForm() {
     setFormData((prev) => ({ ...prev, [key]: value }));
   };
 
+  // 🔥 Production + Local fallback
+  const API_URLS = [
+    "https://careerpath-pro-a2th.onrender.com", // Production
+    "http://localhost:8000",                    // Local
+  ];
+
+  // ⏳ Timeout protection (important for Render cold start)
+  const fetchWithTimeout = (url, options, timeout = 10000) => {
+    return Promise.race([
+      fetch(url, options),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Timeout")), timeout)
+      ),
+    ]);
+  };
+
   const handleSubmit = async () => {
     if (loading) return;
     setLoading(true);
 
-    try {
-      const res = await fetch(
-        `${process.env.REACT_APP_API_URL}/predict`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
+    let success = false;
 
-      if (!res.ok) {
-        throw new Error("API error");
+    for (const baseURL of API_URLS) {
+      try {
+        const response = await fetchWithTimeout(
+          `${baseURL}/predict`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          },
+          10000
+        );
+
+        if (!response.ok) throw new Error("API Error");
+
+        const data = await response.json();
+        setResult(data);
+        success = true;
+        break; // stop if success
+      } catch (error) {
+        console.warn(`Failed at ${baseURL}`);
       }
-
-      const data = await res.json();
-      setResult(data);
-    } catch (err) {
-      alert("Backend not responding 💀");
-      console.error(err);
-    } finally {
-      setLoading(false);
     }
-  };
 
+    if (!success) {
+      alert("All servers are down 💀 Please try again later.");
+    }
+
+    setLoading(false);
+  };
 
   return (
     <div className={`page ${result ? "afterSubmit" : "beforeSubmit"}`}>
