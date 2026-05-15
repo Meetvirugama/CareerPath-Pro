@@ -5,6 +5,7 @@ import TrickOrTreatButton from "./TrickOrTreatButton";
 import HalloweenProgress from "./HalloweenProgress";
 import Pumpkin from "./Pumpkin";
 import HalloweenBats from "./HalloweenBats";
+import HalloweenErrorModal from "./HalloweenErrorModal";
 
 export default function StudentInputForm() {
   const [formData, setFormData] = useState({
@@ -15,19 +16,21 @@ export default function StudentInputForm() {
 
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   const handleChange = (key, value) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
   };
 
-  // 🔥 Production + Local fallback
-  const API_URLS = [
-    "https://careerpath-pro-a2th.onrender.com", // Production
-    "http://localhost:8000",                    // Local
-  ];
+  // 🔥 Environment variables for API routing
+  const primaryApiUrl = process.env.REACT_APP_API_URL || "https://careerpath-pro-a2th.onrender.com";
+  const timeoutMs = parseInt(process.env.REACT_APP_TIMEOUT_MS || "10000", 10);
+
+  // Production + Local fallback (deduplicated)
+  const API_URLS = Array.from(new Set([primaryApiUrl, "http://localhost:8000"]));
 
   // ⏳ Timeout protection (important for Render cold start)
-  const fetchWithTimeout = (url, options, timeout = 10000) => {
+  const fetchWithTimeout = (url, options, timeout = timeoutMs) => {
     return Promise.race([
       fetch(url, options),
       new Promise((_, reject) =>
@@ -38,6 +41,21 @@ export default function StudentInputForm() {
 
   const handleSubmit = async () => {
     if (loading) return;
+
+    // Validation
+    const requiredFields = [
+      "Age", "Gender", "Degree", "Branch", "CGPA", "Internships", 
+      "Projects", "Coding_Skills", "Communication_Skills", 
+      "Aptitude_Test_Score", "Soft_Skills_Rating", "Certifications", "Backlogs"
+    ];
+
+    for (let field of requiredFields) {
+      if (formData[field] === undefined || formData[field] === "") {
+        setErrorMsg(`Please fill out the field: ${field.replace(/_/g, " ")}`);
+        return;
+      }
+    }
+
     setLoading(true);
 
     let success = false;
@@ -51,10 +69,20 @@ export default function StudentInputForm() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
           },
-          10000
+          timeoutMs
         );
 
-        if (!response.ok) throw new Error("API Error");
+        if (!response.ok) {
+          if (response.status === 422) {
+            const errorData = await response.json();
+            const detailMsg = errorData.detail?.[0]?.msg || "Check your inputs";
+            const fieldLoc = errorData.detail?.[0]?.loc?.[1] || "Field";
+            setErrorMsg(`Invalid Input! ${fieldLoc}: ${detailMsg}`);
+            success = true; // Connection succeeded, just invalid payload
+            break;
+          }
+          throw new Error("API Error");
+        }
 
         const data = await response.json();
         setResult(data);
@@ -65,8 +93,8 @@ export default function StudentInputForm() {
       }
     }
 
-    if (!success) {
-      alert("All servers are down 💀 Please try again later.");
+    if (!success && !errorMsg) {
+      setErrorMsg("All servers are down 💀 Please try again later.");
     }
 
     setLoading(false);
@@ -74,6 +102,7 @@ export default function StudentInputForm() {
 
   return (
     <div className={`page ${result ? "afterSubmit" : "beforeSubmit"}`}>
+      <HalloweenErrorModal message={errorMsg} onClose={() => setErrorMsg(null)} />
       <HalloweenBats />
 
       {loading && (
@@ -152,21 +181,33 @@ export default function StudentInputForm() {
           ].map(([key, label]) => (
             <ScarySelector
               key={key}
-              type="number"
+              type="text"
               placeholder={label}
               value={formData[key] ?? ""}
-              onChange={(e) =>
-                handleChange(
-                  key,
-                  e.target.value === "" ? "" : Number(e.target.value)
-                )
-              }
+              onChange={(e) => handleChange(key, e.target.value)}
             />
           ))}
 
           <ScarySelector
-            type="text"
-            placeholder="CSE OR ECE"
+            type="select"
+            placeholder="Select Gender"
+            options={["Male", "Female", "Other"]}
+            value={formData.Gender ?? ""}
+            onChange={(e) => handleChange("Gender", e.target.value)}
+          />
+
+          <ScarySelector
+            type="select"
+            placeholder="Select Degree"
+            options={["B.Tech", "B.E", "M.Tech", "BCA", "MCA"]}
+            value={formData.Degree ?? ""}
+            onChange={(e) => handleChange("Degree", e.target.value)}
+          />
+
+          <ScarySelector
+            type="select"
+            placeholder="Select Branch"
+            options={["Computer Science", "Information Technology", "Electronics and Communication", "Electrical", "Mechanical", "Civil", "Other"]}
             value={formData.Branch ?? ""}
             onChange={(e) => handleChange("Branch", e.target.value)}
           />

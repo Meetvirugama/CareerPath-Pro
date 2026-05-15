@@ -28,9 +28,6 @@ def preprocess_data(csv_path):
         'Placed': 1
     })
 
-    X = df[FEATURES]
-    y = df['Placement_Status']
-
     preprocessor = ColumnTransformer(
         transformers=[
             ('num', StandardScaler(), NUMERIC_FEATURES),
@@ -38,17 +35,7 @@ def preprocess_data(csv_path):
         ]
     )
 
-    X_processed = preprocessor.fit_transform(X)
-
-    X_train, X_test, y_train, y_test = train_test_split(
-        X_processed,
-        y,
-        test_size=0.2,
-        stratify=y,
-        random_state=42
-    )
-
-    return X_train, X_test, y_train, y_test, preprocessor, df
+    return preprocessor, df
 
 def add_salary_column(df):
     if 'Salary' not in df.columns:

@@ -15,21 +15,25 @@ MODEL_DIR = os.path.join(BASE_DIR, "models")
 os.makedirs(MODEL_DIR, exist_ok=True)
 
 
-X_train, X_test, y_train, y_test, preprocessor, df = preprocess_data(DATA_PATH)
+preprocessor, df = preprocess_data(DATA_PATH)
 df = add_salary_column(df)
-
-np.random.seed(42)
-noise_mask = np.random.rand(len(df)) < 0.12
-df.loc[noise_mask, "Placement_Status"] = 1 - df.loc[noise_mask, "Placement_Status"]
 
 X = df[FEATURES]
 y = df["Placement_Status"]
 
-X_processed = preprocessor.fit_transform(X)
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X_processed, y, test_size=0.2, stratify=y, random_state=42
+# 1. Split data BEFORE preprocessing to prevent data leakage
+X_train_raw, X_test_raw, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, stratify=y, random_state=42
 )
+
+# 2. Add noise ONLY to the training set to prevent leakage into the test set
+np.random.seed(42)
+noise_mask = np.random.rand(len(y_train)) < 0.12
+y_train.iloc[noise_mask] = 1 - y_train.iloc[noise_mask]
+
+# 3. Fit preprocessor on training data only
+X_train = preprocessor.fit_transform(X_train_raw)
+X_test = preprocessor.transform(X_test_raw)
 
 placement_model = xgb.XGBClassifier(
     n_estimators=150,
@@ -62,7 +66,12 @@ f1 = f1_score(y_test, y_pred)
 joblib.dump(placement_model, os.path.join(MODEL_DIR, "placement_model.pkl"))
 joblib.dump(preprocessor, os.path.join(MODEL_DIR, "preprocessor.pkl"))
 
-salary_df = df[df["Placement_Status"] == 1]
+# Train salary model ONLY on the training set
+train_df = X_train_raw.copy()
+train_df["Placement_Status"] = y_train
+train_df["Salary"] = df.loc[train_df.index, "Salary"]
+
+salary_df = train_df[train_df["Placement_Status"] == 1]
 
 X_salary = salary_df[FEATURES]
 y_salary = np.log1p(salary_df["Salary"])
