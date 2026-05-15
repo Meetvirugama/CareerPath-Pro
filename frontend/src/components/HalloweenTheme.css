@@ -151,6 +151,12 @@ html, body {
   margin: 0 auto; /* Center the grid */
 }
 
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ===============================
    BUTTON
 ================================ */
