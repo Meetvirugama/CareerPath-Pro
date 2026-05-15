@@ -172,10 +172,10 @@ export default function StudentInputForm() {
             ["CGPA", "CGPA"],
             ["Internships", "Internships"],
             ["Projects", "Projects"],
-            ["Coding_Skills", "Coding Skills (0-10)"],
-            ["Communication_Skills", "Comm Skill (0-100)"],
-            ["Aptitude_Test_Score", "Apti.. Score (0-100)"],
-            ["Soft_Skills_Rating", "Soft Skills (0-10)"],
+            ["Coding_Skills", "Coding (0-10)"],
+            ["Communication_Skills", "Comm (0-100)"],
+            ["Aptitude_Test_Score", "Aptitude (0-100)"],
+            ["Soft_Skills_Rating", "Soft Skill (0-10)"],
             ["Certifications", "Certifications"],
             ["Backlogs", "Backlogs"],
           ].map(([key, label]) => (
@@ -190,7 +190,7 @@ export default function StudentInputForm() {
 
           <ScarySelector
             type="select"
-            placeholder="Select Gender"
+            placeholder="Gender"
             options={["Male", "Female", "Other"]}
             value={formData.Gender ?? ""}
             onChange={(e) => handleChange("Gender", e.target.value)}
@@ -198,7 +198,7 @@ export default function StudentInputForm() {
 
           <ScarySelector
             type="select"
-            placeholder="Select Degree"
+            placeholder="Degree"
             options={["B.Tech", "B.E", "M.Tech", "BCA", "MCA"]}
             value={formData.Degree ?? ""}
             onChange={(e) => handleChange("Degree", e.target.value)}
@@ -206,7 +206,7 @@ export default function StudentInputForm() {
 
           <ScarySelector
             type="select"
-            placeholder="Select Branch"
+            placeholder="Branch"
             options={["Computer Science", "Information Technology", "Electronics and Communication", "Electrical", "Mechanical", "Civil", "Other"]}
             value={formData.Branch ?? ""}
             onChange={(e) => handleChange("Branch", e.target.value)}
