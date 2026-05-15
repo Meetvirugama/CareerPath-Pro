@@ -72,7 +72,8 @@ body {
 
 .bone {
   height: 60px;
-  width: 225px;
+  width: 100%;
+  max-width: 225px; /* Responsive bone width */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -90,10 +91,10 @@ body {
    INPUT STYLING (HALLOWEEN)
 =================================*/
 
-.bone input, .bone select {
-  width: 70%;
+.bone input, .custom-select-value {
+  width: 80%; /* Slightly wider to fit text */
   height: 60%;
-  font-size: 20px;
+  font-size: clamp(16px, 1.5vw, 20px); /* Responsive font */
   font-family: "Waiting for the Sunrise", cursive;
   background-color: #ffffff;
   border: 3px solid #fff;
@@ -102,11 +103,20 @@ body {
   border-radius: 10px;
   transition: 0.3s ease;
   text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: text;
 }
 
-.bone select {
-  appearance: none;
+.custom-select-value {
   cursor: pointer;
+  user-select: none;
+}
+
+.custom-select-value.placeholder {
+  color: #ff4444;
+  opacity: 0.8;
 }
 
 .bone input::placeholder {
@@ -114,9 +124,57 @@ body {
   opacity: 0.8;
 }
 
-.bone input:focus, .bone select:focus {
+.bone input:focus, .custom-select-value:hover {
   outline: none;
   border: 3px solid rgb(255, 122, 34);
   box-shadow: 0 0 10px rgb(255, 122, 34);
   transform: scale(1.05);
+}
+
+.custom-select-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-select-options {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-height: 200px;
+  overflow-y: auto;
+  background: #111;
+  border: 2px solid #ff4444;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(255, 68, 68, 0.5);
+  list-style: none;
+  padding: 0;
+  margin: 5px 0 0 0;
+  z-index: 100;
+}
+
+.custom-select-options li {
+  padding: 10px;
+  color: #fff;
+  font-family: "Waiting for the Sunrise", cursive;
+  font-size: 18px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s;
+  border-bottom: 1px solid rgba(255, 68, 68, 0.3);
+}
+
+.custom-select-options li:last-child {
+  border-bottom: none;
+}
+
+.custom-select-options li:hover {
+  background: #ff4444;
+  color: #fff;
+  text-shadow: 1px 1px 2px #000;
 }

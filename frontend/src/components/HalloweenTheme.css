@@ -40,11 +40,11 @@ html, body {
 .titleSection {
   width: 100%;
   text-align: center;
-  padding: 2rem 0;
+  padding: 1.5vh 0; /* Reduced padding for single-page fit */
 }
 
 .title {
-  font-size: 2.8rem;
+  font-size: clamp(1.8rem, 4vw, 2.8rem); /* Responsive font size */
   font-weight: 800;
   margin: 0;
   letter-spacing: 2px;
@@ -71,17 +71,18 @@ html, body {
 
 .resultSection {
   width: 100%;
-  overflow-x: auto;   /* horizontal scroll container */
-  padding: 2rem 0;
+  padding: 1vh 0;
+  display: flex;
+  justify-content: center;
 }
 
 .resultCard {
   display: flex;
-  gap: 2rem;
-  padding: 1.5rem;
-
-  min-width: 1200px;   /* forces overflow */
-
+  flex-wrap: wrap; /* Allow wrapping on mobile */
+  gap: 1.5rem;
+  padding: 1rem;
+  width: 100%;
+  max-width: 1200px; /* Don't force overflow */
   border-radius: 18px;
   background: linear-gradient(145deg, #021b16, #000d0a);
   border: 2px solid #00ff88;
@@ -90,7 +91,7 @@ html, body {
 
 .resultBox {
   flex: 1;
-  min-width: 250px;
+  min-width: 200px; /* Let it wrap if too small */
   background: rgba(255,255,255,0.05);
   border-radius: 14px;
 
@@ -109,13 +110,13 @@ html, body {
 }
 
 .boxTitle {
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 2vw, 1.5rem);
   opacity: 0.6;
   margin-bottom: 0.6rem;
 }
 
 .boxValue {
-  font-size: 3rem;
+  font-size: clamp(1.8rem, 4vw, 3rem);
   font-weight: 700;
   margin-bottom: 0.4rem;
 }
@@ -136,15 +137,17 @@ html, body {
 
 .formSection {
   width: 100%;
-  padding: 2rem 0;
-  overflow-x: auto;
+  padding: 1vh 0;
+  display: flex;
+  justify-content: center;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(220px, 1fr));
-  gap: 20px;
-  min-width: 900px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px; /* Tighter gap */
+  width: 100%;
+  max-width: 1400px;
 }
 
 /* ===============================
@@ -153,7 +156,7 @@ html, body {
 
 .submitSection {
   width: 100%;
-  padding: 2rem 0;
+  padding: 1.5vh 0 3vh 0; /* Tighter padding, some space at bottom */
   text-align: center;
 }
 
